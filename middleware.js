@@ -13,6 +13,11 @@ const cors = require('cors');
 const middleware = app => {
 
     app.use(cors());
+    // app.use(cors({
+    //     origin: '*'
+    // }));
+    // app.options('*', cors());
+    // app.options('/api/v1/tours/:id', cors());
     app.enable('trust proxy ');
 
     app.set('view engine', 'pug');
