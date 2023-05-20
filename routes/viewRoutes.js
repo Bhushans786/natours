@@ -7,7 +7,9 @@ const router = express.Router();
 
 router.get('/me', authController.protect, viewsController.getAccount);
 router.post('/submit-user-data', authController.protect, viewsController.updateUserData);
-router.get('/my-tours', bookingController.createBookingCheckout, authController.protect, viewsController.getMyTours);
+router.get('/my-tours',
+    // bookingController.createBookingCheckout,
+    authController.protect, viewsController.getMyTours);
 router.use(authController.isLoggedIn);
 
 router.get('/', viewsController.getOverview);

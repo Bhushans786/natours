@@ -1,14 +1,25 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 
 const router = require('./routes');
 const AppError = require('./utils/appError');
 const viewRouter = require('./routes/viewRoutes');
 const globalErrorHandler = require('./controllers/errorController');
 const middleware = require('./middleware');
+const bookingController = require('./controllers/bookingController');
 
 const app = express();
 
+// Stripe webhook, BEFORE body-parser, because stripe needs the body as stream
+app.post(
+    '/webhook-checkout',
+    express.raw({ type: 'application/json' }),
+    // bodyParser.raw({ type: 'application/json' }),
+    bookingController.webhookCheckout
+);
+
 middleware(app);
+
 
 // View Router
 app.use('/', viewRouter);
